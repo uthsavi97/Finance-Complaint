@@ -1,0 +1,9 @@
+requests
+jupyterlab
+pyspark
+PyYAML
+ipykernel
+pandas
+pymongo[srv]
+python-dotenv
+-e .
