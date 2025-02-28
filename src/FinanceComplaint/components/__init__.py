@@ -1,0 +1,1 @@
+from FinanceComplaint.components.data_ingestion import DataIngestion

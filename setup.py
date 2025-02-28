@@ -1,40 +1,37 @@
-'''
-the setup.py file is an essential part of packaging and distributing python projects.It is used by setuptools 
-(or distutils in older python versions) to define the configuration of your project,
-such as its metadata,dependencies, and more
-'''
-
-from setuptools import find_packages,setup
+from setuptools import setup, find_packages
 from typing import List
 
-def get_requirements()->List[str]:
+# Declaring variables for setup functions
+PROJECT_NAME = "Finance-Complaint"
+VERSION = "0.0.4"
+AUTHOR = "uthsavi97"
+DESRCIPTION = "This is a sample for industry ready solution"
+
+REQUIREMENT_FILE_NAME = "requirements.txt"
+
+HYPHEN_E_DOT = "-e ."
+
+
+def get_requirements_list() -> List[str]:
     """
-    this function will return list of requirements
-    
+    Description: This function is going to return list of requirement
+    mention in requirements.txt file
+    return This function is going to return a list which contain name
+    of libraries mentioned in requirements.txt file
     """
-    requirement_lst:List[str]=[]
+    with open(REQUIREMENT_FILE_NAME) as requirement_file:
+        requirement_list = requirement_file.readlines()
+        requirement_list = [requirement_name.replace("\n", "") for requirement_name in requirement_list]
+        if HYPHEN_E_DOT in requirement_list:
+            requirement_list.remove(HYPHEN_E_DOT)
+        return requirement_list
 
-    try:
-        with open('requirements.txt','r') as file:
-            #read lines from the file
-            lines=file.readlines()
-            ## process each line
-            for line in lines:
-                requirements=line.strip()
-                ## ignore empty lines and -e.
-                if requirements and requirements!= '-e.':
-                    requirement_lst.append(requirements)
-
-    except FileNotFoundError:
-        print("requirements.txt file not found")
-
-    return requirement_lst
 
 setup(
-    name="Finance-Complaint",
-    version="0.0.1",
-    author="uthsavi97",
-    author_email="uthsaviyp@gmail.com",
+    name=PROJECT_NAME,
+    version=VERSION,
+    author=AUTHOR,
+    description=DESRCIPTION,
     packages=find_packages(),
-    install_requires=get_requirements()
+    install_requires=get_requirements_list()
 )
